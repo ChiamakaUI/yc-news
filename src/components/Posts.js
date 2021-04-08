@@ -1,20 +1,21 @@
-import React from 'react'
+import React from 'react';
+import { Link } from "react-router-dom";
 
 const Posts = (props) => {
     return (
       <div>
-        {props.posts.map((posts) => (
-          <div key= {posts.id}>
+        {props.posts.map((post) => (
+          <div key= {post.id}>
             {" "}
             <h5>
-              <a href={posts.url} target="_blank" rel="noopener noreferrer">
-                <span>{posts.title}</span>
-              </a>
+              <Link to={`/item/${post.id}`}>
+                <span>{post.title}</span>
+              </Link>
             </h5>
-            <span>{posts.user}</span>
-            <span>{posts.points} points</span>
-            <span>{posts.time_ago}</span>
-            <span>{posts.comments_count} comments </span>
+            <span>{post.user}</span>
+            <span>{post.points} points</span>
+            <span>{post.time_ago}</span>
+            <span>{post.comments_count} comments </span>
           </div>
         ))}
         {/* <div className="repoTitle">

@@ -1,8 +1,8 @@
-import React,{useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
+import { Switch, Route,Redirect } from "react-router-dom";
 import Posts from './components/Posts';
-import {getPosts, getComments}from "./components/Api";
-
-
+import { getPosts }from "./components/Api";
+import Comments from "./components/Comments";
 
 function App() {
   const [posts, setPosts] = useState([])
@@ -10,38 +10,22 @@ function App() {
   useEffect(() => {
     async function fetch() {
       let post = await getPosts();
-      // console.log(post)
-      setPosts(post)
-
+      setPosts(post);
     }
     fetch();
+  });
 
-  })
-
-  useEffect(() => {
-    async function fetch() {
-      let comments = await getComments();
-
-      console.log(comments)
-
-    }
-    fetch();
-
-  })
   return (
     <div>
-{/* 
-      {
-        posts.map(post => (
-
-          <div>posts</div>
-        ))
-      } */}
-
-            
-      <Posts posts={posts} /> 
-      
-      
+      <Switch>
+        <Redirect 
+          exact
+          from={'/'}
+          to={'/news'}
+        />
+        <Route path={'/news'} exact render={(props)=>(<Posts posts={posts} {...props}/> )}/>
+        <Route path={'/item/:id'} exact component={Comments}/>
+      </Switch>
     </div>
   );
 }
